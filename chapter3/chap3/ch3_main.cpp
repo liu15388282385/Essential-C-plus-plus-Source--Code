@@ -341,7 +341,7 @@ void prog_filter_vers()
 				partition_value, greater<int>());
 
 	err_cnt = 0;
-	ix = solution_size;
+	int ix = solution_size;
 
 	for (int iy = 0; ix < ivec.size(); ++ix, ++iy)
 		if (ivec[ix] != ivec2[iy])
