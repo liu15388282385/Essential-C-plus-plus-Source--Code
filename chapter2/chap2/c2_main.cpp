@@ -293,7 +293,7 @@ void prog4()
 
     // ok: debug information generated ...
     //     the default value is not used ...
-    ofstream ofil( "E:\\Programs\\chapter2\\data.txt" );
+    ofstream ofil( "data.txt" );
     bubble_sort5( vec, &ofil ); 
     display( vec, ofil );
 }
