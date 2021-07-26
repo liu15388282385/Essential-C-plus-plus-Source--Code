@@ -1,4 +1,4 @@
-# Essential-C++ Source--Code
+# Essential-C++ Source Code
 
 Essential C++ （中文版）
 *  Stanley B. Lippman著
