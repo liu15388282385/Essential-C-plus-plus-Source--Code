@@ -19,22 +19,22 @@ int ex1_5_string()
 
     switch ( user_name.size() ){
         case 0:
-				cout << "Ah, the user with no name. "
+			cout << "Ah, the user with no name. "
                  << "Well, ok, hi, user with no name\n";
-				break;
+			break;
 
-		  case 1:
-				cout << "A 1-character name? Hmm, have you read Kafka?: "
+		case 1:
+			cout << "A 1-character name? Hmm, have you read Kafka?: "
                  << "hello, " << user_name << endl;
             break;
 
-			 default:
-		      // any string longer than 1 character
-				cout << "Hello, " << user_name
+		default:
+			// any string longer than 1 character
+			cout << "Hello, " << user_name
                  << " -- happy to make your acquaintance!\n";
-				break;
-		}
-		return 0;
+			break;
+	}
+	return 0;
 }
 
 #include <iostream>
