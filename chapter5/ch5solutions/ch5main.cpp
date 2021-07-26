@@ -14,139 +14,157 @@ using namespace std;
 
 typedef string elemType;
 
-class Stack {
+class Stack
+{
 public:
-    virtual ~Stack(){}
-    virtual bool pop( elemType& ) = 0;
-    virtual bool push( const elemType& ) = 0;
-    virtual bool peek( int index, elemType& ) = 0;
-	virtual int  top() const = 0;
-    virtual int  size() const = 0;
-    virtual bool empty() const = 0;
-    virtual bool full() const = 0;
-    virtual void print( ostream& =cout ) const = 0;
+     virtual ~Stack() {}
+     virtual bool pop(elemType &) = 0;
+     virtual bool push(const elemType &) = 0;
+     virtual bool peek(int index, elemType &) = 0;
+     virtual int top() const = 0;
+     virtual int size() const = 0;
+     virtual bool empty() const = 0;
+     virtual bool full() const = 0;
+     virtual void print(ostream & = cout) const = 0;
 };
 
-ostream& operator<<( ostream &os, const Stack &rhs )
-		{ rhs.print(); return os; }
+ostream &operator<<(ostream &os, const Stack &rhs)
+{
+     rhs.print();
+     return os;
+}
 
-class LIFO_Stack : public Stack {
+class LIFO_Stack : public Stack
+{
 public:
-	LIFO_Stack( int capacity = 0 ) 
-      : _top( 0 ){ _stack.reserve( capacity ); }
+     LIFO_Stack(int capacity = 0)
+         : _top(0) { _stack.reserve(capacity); }
 
-   int  size()  const { return _stack.size(); }
-   bool empty() const { return ! _top; }
-   bool full()  const { return size() >= _stack.max_size(); }
-   
-   int  top() const { return _top; }
-   bool pop( elemType &elem ){
-        if ( empty() )
-             return false;
+     int size() const { return _stack.size(); }
+     bool empty() const { return !_top; }
+     bool full() const { return size() >= _stack.max_size(); }
 
-        elem = _stack[ --_top ];
-        _stack.pop_back();
-        return true;
-   }
+     int top() const { return _top; }
+     bool pop(elemType &elem)
+     {
+          if (empty())
+               return false;
 
-   bool peek( int, elemType& ){
-        return false; } // don’t support this ...
+          elem = _stack[--_top];
+          _stack.pop_back();
+          return true;
+     }
 
-   bool push( const elemType &elem ){
-         if ( ! full() ){
-              _stack.push_back( elem );
-              ++_top;
-              return true;
-			}
-         return false;
-   }
+     bool peek(int, elemType &)
+     {
+          return false;
+     } // don’t support this ...
 
-   void print( ostream &os=cout )const
-   {
-	    vector<elemType>::const_reverse_iterator 
-		      rit = _stack.rbegin(), 
+     bool push(const elemType &elem)
+     {
+          if (!full())
+          {
+               _stack.push_back(elem);
+               ++_top;
+               return true;
+          }
+          return false;
+     }
+
+     void print(ostream &os = cout) const
+     {
+          vector<elemType>::const_reverse_iterator
+              rit = _stack.rbegin(),
               rend = _stack.rend();
 
-		os << "\n\t";
-	    while ( rit != rend )
-		    os << *rit++ << "\n\t";
-        os << endl;
-   }
+          os << "\n\t";
+          while (rit != rend)
+               os << *rit++ << "\n\t";
+          os << endl;
+     }
+
 private:
-   vector< elemType > _stack;
-   int _top;
+     vector<elemType> _stack;
+     int _top;
 };
 
-class Peekback_Stack : public Stack {
+class Peekback_Stack : public Stack
+{
 public:
-	Peekback_Stack( int capacity = 0 ) 
-      : _top( 0 ){ _stack.reserve( capacity ); }
+     Peekback_Stack(int capacity = 0)
+         : _top(0) { _stack.reserve(capacity); }
 
-   int  size()  const { return _stack.size(); }
-   bool empty() const { return ! _top; }
-   bool full()  const { return size() >= _stack.max_size(); }
-   int  top() const { return _top; }  
+     int size() const { return _stack.size(); }
+     bool empty() const { return !_top; }
+     bool full() const { return size() >= _stack.max_size(); }
+     int top() const { return _top; }
 
-   bool pop( elemType &elem ){
-        if ( empty() )
-             return false;
+     bool pop(elemType &elem)
+     {
+          if (empty())
+               return false;
 
-        elem = _stack[ --_top ];
-        _stack.pop_back();
-        return true;
-   }
+          elem = _stack[--_top];
+          _stack.pop_back();
+          return true;
+     }
 
-   bool push( const elemType &elem ){
-         if ( ! full() ){
-              _stack.push_back( elem );
-              ++_top;
-              return true;
-			}
-         return false;
-   }
+     bool push(const elemType &elem)
+     {
+          if (!full())
+          {
+               _stack.push_back(elem);
+               ++_top;
+               return true;
+          }
+          return false;
+     }
 
-   bool peek( int index, elemType &elem );
-   void print( ostream &os=cout ) const
-   {
-	    vector<elemType>::const_reverse_iterator 
-		    rit = _stack.rbegin(), 
-           rend = _stack.rend();
+     bool peek(int index, elemType &elem);
+     void print(ostream &os = cout) const
+     {
+          vector<elemType>::const_reverse_iterator
+              rit = _stack.rbegin(),
+              rend = _stack.rend();
 
-		os << "\n\t";
-	    while ( rit != rend )
-		    os << *rit++ << "\n\t";
-        os << endl;
-   }
+          os << "\n\t";
+          while (rit != rend)
+               os << *rit++ << "\n\t";
+          os << endl;
+     }
+
 private:
-   vector< elemType > _stack;
-   int _top;
+     vector<elemType> _stack;
+     int _top;
 };
 
 bool Peekback_Stack::
-peek( int index, elemType &elem ){
-    if ( empty() )
-         return false;
+    peek(int index, elemType &elem)
+{
+     if (empty())
+          return false;
 
-    if ( index < 0 || index >= size() )
-         return false;
+     if (index < 0 || index >= size())
+          return false;
 
-    elem = _stack[ index ];
-    return true;
+     elem = _stack[index];
+     return true;
 }
 
-void peek( Stack &st, int index )
+void peek(Stack &st, int index)
 {
-	cout  << endl;
-	string t;
-	if ( st.peek( index, t ))
-	     cout << "peek: " << t;
-	else cout << "peek failed!";
-	cout << endl;
+     cout << endl;
+     string t;
+     if (st.peek(index, t))
+          cout << "peek: " << t;
+     else
+          cout << "peek failed!";
+     cout << endl;
 }
 
 void ex5_1()
 {
-	/*
+     /*
 	once upon a time
 	About to call peek() with LIFO_Stack  
     peek failed!
@@ -165,28 +183,30 @@ void ex5_1()
         time
 	*/
 
-	LIFO_Stack st;
-	string str;
+     LIFO_Stack st;
+     string str;
 
-	cout << "Please enter a series of strings.\n";
+     cout << "Please enter a series of strings.\n";
 
-	while ( cin >> str && ! st.full() )
-		    st.push( str );
+     while (cin >> str && !st.full())
+          st.push(str);
 
-	cout << endl << "About to call peek() with LIFO_Stack" << endl;
-	peek( st, st.top()-1 );
-	cout << st;
+     cout << endl
+          << "About to call peek() with LIFO_Stack" << endl;
+     peek(st, st.top() - 1);
+     cout << st;
 
-    Peekback_Stack pst;
-    while ( ! st.empty() ) {
-		string t;
-		if ( st.pop( t ))
-		     pst.push( t );
-	}
+     Peekback_Stack pst;
+     while (!st.empty())
+     {
+          string t;
+          if (st.pop(t))
+               pst.push(t);
+     }
 
-	cout << "About to call peek() with Peekback_Stack" << endl;	        
-	peek( pst, pst.top()-1 );
-	cout << pst;
+     cout << "About to call peek() with Peekback_Stack" << endl;
+     peek(pst, pst.top() - 1);
+     cout << pst;
 }
 
 // NOTE: the reimplementation requested of 5.2
@@ -194,5 +214,5 @@ void ex5_1()
 
 int main()
 {
-	ex5_1();
+     ex5_1();
 }
