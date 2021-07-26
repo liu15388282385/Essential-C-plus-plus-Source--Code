@@ -263,13 +263,13 @@ int ex1_7()
 int main()
 {
 
-	// ex1_5_string();
-	// ex1_5_cstyle();
-	// ex1_6_vector();
-	// ex1_6_array();
-	// int rev_val = ex1_7();
-
-	// ex1_xtra1();
+	ex1_xtra1();
 	ex1_xtra2();
+	ex1_5_string();
+	ex1_5_cstyle();
+	ex1_6_vector();
+	ex1_6_array();
+	int rev_val = ex1_7();
+	
 	return 0; // quiets vc++
 }
