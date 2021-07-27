@@ -2,7 +2,13 @@
     "files.associations": {
         "iosfwd": "cpp",
         "vector": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "__locale": "cpp",
+        "filesystem": "cpp",
+        "fstream": "cpp",
+        "locale": "cpp",
+        "stdexcept": "cpp",
+        "string": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
