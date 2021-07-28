@@ -83,7 +83,7 @@ bump_correct( user_profile *puser )
 inline num_sequence 
 gen_seq_id( unsigned int ui )
 {
-	srand( ui++ );
+	srand( time (NULL) );
 	return static_cast<num_sequence>( ( rand() % ns_cnt ) + 1 );
 }
 
