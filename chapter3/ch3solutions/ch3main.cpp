@@ -1,8 +1,3 @@
-#include <vector>
-#include <algorithm>
-#include <functional>
-#include <iterator>
-#include <map>
 /**************************************************
  * Essential C++ -- Stanley Lippman
  * Addison-Wesley 
@@ -18,6 +13,8 @@
 #include <map>
 #include <iterator>
 #include <vector>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
