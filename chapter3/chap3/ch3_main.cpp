@@ -15,6 +15,7 @@
 
 using namespace std;
 
+
 // globals as convenience for executing procedures
 const int int_size = 12;
 const int string_size = 4;
