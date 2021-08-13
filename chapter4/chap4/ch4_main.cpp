@@ -15,15 +15,15 @@ using namespace std;
 class Triangular_iterator
 {
 public:
-    Triangular_iterator(int index) : _index(index - 1) {} //???????iterator;
-    bool operator==(const Triangular_iterator &) const;   //??iterator????;
-    bool operator!=(const Triangular_iterator &) const;   //??iterator?????;
-    int operator*() const;                                //????????;
-    Triangular_iterator &operator++();                    //???????;
-    Triangular_iterator operator++(int);                  //???????;
+    Triangular_iterator(int index) : _index(index - 1) {} //构造函数初始化iterator;
+    bool operator==(const Triangular_iterator &) const;   //比较iterator是否相等;
+    bool operator!=(const Triangular_iterator &) const;   //比较iterator是否不相等;
+    int operator*() const;                                //指针解引用运算符;
+    Triangular_iterator &operator++();                    //前置自增运算符;
+    Triangular_iterator operator++(int);                  //后置自增运算符;
 
 private:
-    void check_integrity() const; //??_index??????;
+    void check_integrity() const; //判断_index索引是否合法;
     int _index;
 };
 
@@ -33,26 +33,26 @@ public:
     Triangular(int len = 1, int bp = 1);
     Triangular(const Triangular &);
     Triangular &operator=(const Triangular &rhs);
-    //3?????;
+    //3个构造函数;
 
     int length() const { return _length; }
     int beg_pos() const { return _beg_pos; }
     int elem(int pos) const;
-    //??vector??, ????, pos??????;
+    //获取vector长度, 起始位置, pos位置的元素值;
 
     void length(int nlen) { _length = nlen; }
     void beg_pos(int npos) { _beg_pos = npos; }
-    //??Triangular??????????;
+    //更改Triangular的长度大小和起始位置;
 
     bool next(int &val) const;
     void next_reset() const { _next = 1; }
-    //????????_next??;
+    //获取元素值和重置_next指针;
 
     static bool is_elem(int);
     static void gen_elements(int length);
     static void gen_elems_to_value(int value);
     static void display(int length, int beg_pos, ostream &os = cout);
-    //????????, ????????vector<int> _elems;
+    //只能访问静态成员, 此处访问的是成员vector<int> _elems;
 
     typedef Triangular_iterator iterator;
     Triangular_iterator begin() const
@@ -65,7 +65,7 @@ public:
     }
 
 private:
-    friend class Triangular_iterator; //??Triangular??iterator??, ???private????;
+    friend class Triangular_iterator; //作为Triangular类的iterator友元, 可访问private中的成员;
     int _length;
     int _beg_pos;
     mutable int _next;
@@ -109,7 +109,7 @@ Triangular::Triangular(const Triangular &rhs) : _length(rhs._length), _beg_pos(r
 {
 }
 
-//????????
+//计算所有元素之和
 int sum(const Triangular &trian)
 {
     if (0 == trian.length())
@@ -117,7 +117,7 @@ int sum(const Triangular &trian)
         return 0;
     }
     int val, sum = 0;
-    trian.next_reset(); //?????????;
+    trian.next_reset(); //重置为起点开始累加;
     while (trian.next(val))
     {
         sum += val;
@@ -156,7 +156,7 @@ Triangular &Triangular::operator=(const Triangular &rhs)
     return *this;
 };
 
-vector<int> Triangular::_elems; //??????vector;
+vector<int> Triangular::_elems; //定义一个静态vector;
 
 bool Triangular::is_elem(int value)
 {
@@ -181,7 +181,7 @@ void Triangular::gen_elements(int length)
         int ix = _elems.size() ? _elems.size() + 1 : 1;
         while (ix <= length)
         {
-            _elems.push_back(ix * (ix + 1) / 2); //??????vector??????length;
+            _elems.push_back(ix * (ix + 1) / 2); //添加元素直到vector长度大于等于length;
             ++ix;
         }
     }
@@ -198,7 +198,7 @@ void Triangular::gen_elems_to_value(int value)
     }
     while (_elems[ix - 1] < value && ix < _max_elems)
     {
-        _elems.push_back(ix * (ix + 1) / 2); //?????vector???????value;
+        _elems.push_back(ix * (ix + 1) / 2); //添加元素到vector中直到大于等于value;
         ++ix;
     }
     if (ix == _max_elems)
@@ -232,15 +232,15 @@ void Triangular::display(int length, int beg_pos, ostream &os)
 
 inline bool Triangular_iterator::operator==(const Triangular_iterator &rhs) const
 {
-    return _index == rhs._index; //??2?Triangular?????;
+    return _index == rhs._index; //判断2个Triangular类是否相等;
 }
 
 inline bool Triangular_iterator::operator!=(const Triangular_iterator &rhs) const
 {
-    return !(*this == rhs); //??????==???????;
+    return !(*this == rhs); //使用重载过的==运算符的非运算;
 }
 
-class iterator_overflow //???????;
+class iterator_overflow //声明一个异常类;
 {
 };
 
@@ -248,11 +248,11 @@ inline void Triangular_iterator::check_integrity() const
 {
     if (_index > Triangular::_max_elems)
     {
-        throw iterator_overflow(); //???????iterator_overflow;
+        throw iterator_overflow(); //抛出一个异常类iterator_overflow;
     }
     if (_index > Triangular::_elems.size())
     {
-        Triangular::gen_elements(_index); //?????vector?????????_index;
+        Triangular::gen_elements(_index); //添加元素到vector中直到长度大于等于_index;
     }
     return;
 }
@@ -260,25 +260,25 @@ inline void Triangular_iterator::check_integrity() const
 inline int Triangular_iterator::operator*() const
 {
     check_integrity();
-    return Triangular::_elems[_index]; //??_index??????;
+    return Triangular::_elems[_index]; //获取_index索引中的元素;
 }
 
 inline Triangular_iterator &Triangular_iterator::operator++()
 {
-    ++_index; //????;
+    ++_index; //递增下标;
     check_integrity();
-    return *this; //????;
+    return *this; //返回新值;
 }
 
 inline Triangular_iterator Triangular_iterator::operator++(int)
 {
-    Triangular_iterator tmp = *this; //?????;
-    ++_index;                        //????;
+    Triangular_iterator tmp = *this; //存储先前值;
+    ++_index;                        //递增下标;
     check_integrity();
-    return tmp; //?????;
+    return tmp; //返回先前值;
 }
 
-//???????????????;
+//函数对象作用是比较小于等于的值;
 class LessThan
 {
 public:
@@ -298,7 +298,7 @@ int count_less_than(const vector<int> &vec, int comp)
 
     for (int ix = 0; ix < vec.size(); ++ix)
     {
-        if (lt(vec[ix])) //????;
+        if (lt(vec[ix])) //直接调用;
         {
             ++count;
         }
@@ -313,7 +313,7 @@ void print_less_than(const vector<int> &vec, int comp, ostream &os = cout)
     vector<int>::const_iterator it_end = vec.end();
 
     os << "elements less than " << lt.comp_val() << endl;
-    while ((iter = find_if(iter, it_end, lt)) != it_end) //?????????????find_if;
+    while ((iter = find_if(iter, it_end, lt)) != it_end) //作为参数调用标准模板库函数find_if;
     {
         os << *iter << ' ';
         ++iter;
