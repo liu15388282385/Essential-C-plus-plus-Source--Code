@@ -89,21 +89,18 @@ ostream &operator<<(ostream &os, const num_sequence &ns)
 	return ns.print(os);
 }
 
-inline bool num_sequence::
-operator==(const num_sequence &rhs) const
+inline bool num_sequence::operator==(const num_sequence &rhs) const
 {
 	return (_beg_pos == rhs._beg_pos) &&
 		   (_length == rhs._length);
 }
 
-inline bool num_sequence::
-operator!=(const num_sequence &rhs) const
+inline bool num_sequence::operator!=(const num_sequence &rhs) const
 {
 	return !(*this == rhs);
 }
 
-inline void num_sequence::
-	set_position(int pos)
+inline void num_sequence::set_position(int pos)
 {
 	if (pos <= 0 || pos > _max_elems)
 	{
@@ -115,8 +112,7 @@ inline void num_sequence::
 	_beg_pos = pos;
 }
 
-inline void num_sequence::
-	set_length(int len)
+inline void num_sequence::set_length(int len)
 {
 	if (len <= 0 || len + _beg_pos - 1 > _max_elems)
 	{
@@ -128,16 +124,14 @@ inline void num_sequence::
 	_length = len;
 }
 
-inline num_sequence::
-	num_sequence(int beg_pos, int len,
-				 vector<unsigned int> &re) : _relems(re)
+inline num_sequence::num_sequence(int beg_pos, int len,
+								  vector<unsigned int> &re) : _relems(re)
 {
 	set_position(beg_pos);
 	set_length(len);
 }
 
-inline unsigned int num_sequence::
-	elem(int pos) const
+inline unsigned int num_sequence::elem(int pos) const
 {
 	return (!check_integrity(pos, _relems.size()))
 			   ? 0
@@ -146,14 +140,12 @@ inline unsigned int num_sequence::
 
 #include <typeinfo>
 
-inline const char *num_sequence::
-	what_am_i() const
+inline const char *num_sequence::what_am_i() const
 {
 	return typeid(*this).name();
 }
 
-inline bool num_sequence::
-	check_integrity(int pos, int size) const
+inline bool num_sequence::check_integrity(int pos, int size) const
 {
 	bool status = true;
 
