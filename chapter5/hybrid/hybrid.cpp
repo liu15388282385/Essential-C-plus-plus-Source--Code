@@ -53,15 +53,9 @@ public:
 	int length() const { return _length; }
 	int beg_pos() const { return _beg_pos; }
 
-	iterator begin() const
-	{
-		return _relems.begin() + _beg_pos - 1;
-	}
+	iterator begin() const { return _relems.begin() + _beg_pos - 1; }
 
-	iterator end() const
-	{
-		return _relems.begin() + _beg_pos + _length;
-	}
+	iterator end() const { return _relems.begin() + _beg_pos + _length; }
 
 	void set_position(int pos);
 	void set_length(int pos);
@@ -69,10 +63,7 @@ public:
 	bool operator==(const num_sequence &) const;
 	bool operator!=(const num_sequence &) const;
 
-	const vector<unsigned int> *sequence() const
-	{
-		return &_relems;
-	}
+	const vector<unsigned int> *sequence() const { return &_relems; }
 
 protected:
 	// static const int    _max_elems = 1024;
@@ -93,8 +84,7 @@ protected:
 	vector<unsigned int> &_relems;
 };
 
-ostream &
-operator<<(ostream &os, const num_sequence &ns)
+ostream &operator<<(ostream &os, const num_sequence &ns)
 {
 	return ns.print(os);
 }
@@ -188,8 +178,7 @@ inline bool num_sequence::
 //    Obj.is_elem( 5 ); // false
 //    Obj.is_elem( 4 ); // false
 
-inline bool num_sequence::
-	is_elem(unsigned int elem) const
+inline bool num_sequence::is_elem(unsigned int elem) const
 {
 	return (!check_integrity(_beg_pos, _length))
 			   ? false
@@ -199,8 +188,7 @@ inline bool num_sequence::
 // base class non-inline implementations
 // normally would go in a program text file: .cpp
 
-ostream &num_sequence::
-	print(ostream &os) const
+ostream &num_sequence::print(ostream &os) const
 {
 
 	int elem_pos = _beg_pos - 1;
@@ -229,8 +217,7 @@ ostream &num_sequence::
 //     Obj.pos_elem( very-large-instance ); // your choice
 //     Obj.pos_elem( 4 ); // return 0
 
-int num_sequence::
-	pos_elem(unsigned int elem) const
+int num_sequence::pos_elem(unsigned int elem) const
 {
 	cout << "pos_elem( " << elem << " )\n";
 
@@ -243,8 +230,7 @@ int num_sequence::
 			   : distance(_relems.begin(), iter) + 1;
 }
 
-int num_sequence::
-	_calc_pos(unsigned int elem) const
+int num_sequence::_calc_pos(unsigned int elem) const
 {
 	// presumption is that check_integrity() has passed
 	int pos = _relems.size() - 1;
@@ -293,10 +279,7 @@ public:
 	Pell(int beg_pos = 1, int len = 1)
 		: num_sequence(beg_pos, len, _elems) {}
 
-	virtual num_sequence *clone() const
-	{
-		return new Pell(*this);
-	}
+	virtual num_sequence *clone() const { return new Pell(*this); }
 
 protected:
 	virtual void gen_elems(int pos) const;
@@ -367,9 +350,8 @@ protected:
 	static vector<unsigned int> _elems;
 };
 
-inline void
-display(ostream &os, const num_sequence &ns,
-		int pos, int elem_val)
+inline void display(ostream &os, const num_sequence &ns,
+					int pos, int elem_val)
 {
 	os << "The element at position " << pos
 	   << " for the "
@@ -377,8 +359,7 @@ display(ostream &os, const num_sequence &ns,
 	   << " sequence is " << elem_val << endl;
 }
 
-inline void
-display(ostream &os, const num_sequence &ns, int pos)
+inline void display(ostream &os, const num_sequence &ns, int pos)
 {
 	os << "The element at position "
 	   << pos << " for the "
@@ -531,8 +512,7 @@ vector<unsigned int> Triangular::_elems;
 vector<unsigned int> Square::_elems;
 vector<unsigned int> Pentagonal::_elems;
 
-void Fibonacci::
-	gen_elems(int pos) const
+void Fibonacci::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
@@ -561,8 +541,7 @@ void Fibonacci::
 	}
 }
 
-void Pell::
-	gen_elems(int pos) const
+void Pell::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
@@ -590,8 +569,7 @@ void Pell::
 	}
 }
 
-void Lucas::
-	gen_elems(int pos) const
+void Lucas::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
@@ -619,8 +597,7 @@ void Lucas::
 	}
 }
 
-void Triangular::
-	gen_elems(int pos) const
+void Triangular::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
@@ -635,8 +612,7 @@ void Triangular::
 	}
 }
 
-void Square::
-	gen_elems(int pos) const
+void Square::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
@@ -650,8 +626,7 @@ void Square::
 	}
 }
 
-void Pentagonal::
-	gen_elems(int pos) const
+void Pentagonal::gen_elems(int pos) const
 {
 	if (pos <= 0 || pos > max_elems())
 		return;
