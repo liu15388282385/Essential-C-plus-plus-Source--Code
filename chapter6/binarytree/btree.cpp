@@ -297,6 +297,7 @@ operator=(const BinaryTree &rhs)
 		clear();
 		copy(_root, rhs._root);
 	}
+	return *this;
 }
 
 template <typename elemType>
