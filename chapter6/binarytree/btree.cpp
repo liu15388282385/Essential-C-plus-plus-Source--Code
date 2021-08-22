@@ -156,11 +156,12 @@ void BTnode<valType>::
 		if (_rchild)
 		{
 			prev = _rchild;
-			if (_lchild)
+			if (_lchild) {
 				if (!prev->_lchild)
 					prev->_lchild = _lchild;
-				else
+				else 
 					BTnode<valType>::lchild_leaf(_lchild, prev->_lchild);
+			}
 		}
 		else
 			prev = _lchild;
@@ -361,11 +362,12 @@ void BinaryTree<elemType>::
 
 		// if left child of root is non-null
 		// attach it as leaf to left subtree
-		if (lc)
+		if (lc) {
 			if (!newlc)
 				_root->_lchild = lc;
 			else
 				BTnode<elemType>::lchild_leaf(lc, newlc);
+		}
 	}
 	else
 		_root = _root->_lchild;
