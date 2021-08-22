@@ -16,8 +16,8 @@
             ],
             "compilerPath": "/usr/bin/clang++",
             "intelliSenseMode": "${default}",
-            "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cStandard": "c17",
+            "cppStandard": "c++11"
         }
     ],
     "version": 4
